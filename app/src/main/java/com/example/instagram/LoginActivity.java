@@ -1,8 +1,10 @@
 package com.example.instagram;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,12 +21,19 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userName;
     private EditText password;
     private Button loginButton;
+    private Button createAccountButton;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-        getSupportActionBar().setIcon(R.drawable.nav_logo_whiteout);
+// -------------------------------------------------------------
+// Sets Logo to Action Bar
+        androidx.appcompat.app.ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        LayoutInflater inflater =(LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View actionBarView = inflater.inflate(R.layout.actionbar_logo, null);
+        actionBar.setCustomView(actionBarView);
+// -------------------------------------------------------------
 
         if(ParseUser.getCurrentUser()!= null) {
             goMainActivity();
@@ -42,7 +51,23 @@ public class LoginActivity extends AppCompatActivity {
                 loginUser(username, passwordEntered);
             }
         });
+
+        createAccountButton = findViewById(R.id.createAccountButton);
+        createAccountButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.i(TAG, "onClick create account button");
+                goCreateAccountActivity();
+            }
+        });
+
     }
+
+    private void goCreateAccountActivity() {
+        Intent j = new Intent(this, CreateAccountActivity.class);
+        startActivity(j);
+    }
+
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to login: " + username);
         ParseUser.logInInBackground(username, password, new LogInCallback() {

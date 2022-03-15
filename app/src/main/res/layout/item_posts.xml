@@ -97,6 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/likeButton"
         android:layout_marginTop="0dp"
+        android:textSize="18dp"
         android:textStyle="bold"
         tools:text="6 Likes" />
 
@@ -106,6 +107,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/likesCount"
         android:layout_marginBottom="8dp"
+        android:textSize="18sp"
         android:textStyle="bold"
         tools:text="bryan" />
 
@@ -117,6 +119,7 @@
         android:layout_marginStart="5dp"
         android:layout_marginBottom="8dp"
         android:layout_toEndOf="@+id/tvSmallUser"
+        android:textSize="18dp"
         tools:text="a Description of the picture Above" />
 
 </RelativeLayout>
