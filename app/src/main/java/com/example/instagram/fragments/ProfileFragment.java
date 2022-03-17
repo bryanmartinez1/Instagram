@@ -14,8 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.example.instagram.LoginActivity;
 import com.example.instagram.MainActivity;
 import com.example.instagram.Post;
@@ -24,6 +27,7 @@ import com.example.instagram.ProfileAdapter;
 import com.example.instagram.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
@@ -36,6 +40,12 @@ public class ProfileFragment extends Fragment {
     private RecyclerView rvPosts;
     private ProfileAdapter profileAdapter;
     private List<Post> allPosts;
+
+    private TextView tvProfileUserName;
+    private TextView tvProfileTotalPosts;
+    private TextView tvProfileBio;
+    private ImageView userPFP;
+
     private Button buttonLogOut;
 
     public ProfileFragment() {
@@ -52,11 +62,26 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ParseUser currentUser = ParseUser.getCurrentUser();
         rvPosts = getView().findViewById(R.id.profileFragmentPosts);
         allPosts = new ArrayList<>();
         profileAdapter = new ProfileAdapter(getContext(), allPosts);
-        buttonLogOut = view.findViewById(R.id.profileButtonLogOut);
 
+        tvProfileUserName = view.findViewById(R.id.tvProfileUserName);
+        tvProfileBio = view.findViewById(R.id.tvProfileBio);
+        tvProfileTotalPosts = view.findViewById(R.id.tvProfileTotalPosts);
+        userPFP = view.findViewById(R.id.ivUserProfileImage);
+
+        tvProfileUserName.setText(currentUser.getUsername());
+        tvProfileTotalPosts.setText("9 " + "Posts");
+        tvProfileBio.setText(currentUser.getString("userBio"));
+        // PFP Image
+        ParseFile pfp = currentUser.getParseFile("userProfileImage");
+        if(pfp != null) {
+            Glide.with(getContext()).load(pfp.getUrl()).into(userPFP);
+        }
+
+        buttonLogOut = view.findViewById(R.id.profileButtonLogOut);
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +107,7 @@ public class ProfileFragment extends Fragment {
     private void queryPosts() {
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         query.include(Post.KEY_USER);
+        query.setLimit(20);
         query.whereEqualTo(Post.KEY_USER, ParseUser.getCurrentUser());
         query.addDescendingOrder(Post.KEY_CREATED_TIME);
         query.findInBackground(new FindCallback<Post>() {

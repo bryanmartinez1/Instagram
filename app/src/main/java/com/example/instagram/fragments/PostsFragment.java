@@ -14,6 +14,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.instagram.Post;
@@ -32,7 +34,6 @@ public class PostsFragment extends Fragment {
     private RecyclerView rvPosts;
     private PostsAdapter postsAdapter;
     private List<Post> allPosts;
-    private ImageButton likeButton;
 
     public PostsFragment() {
         // Required empty public constructor
@@ -51,14 +52,6 @@ public class PostsFragment extends Fragment {
         rvPosts = getView().findViewById(R.id.rvPosts);
         allPosts = new ArrayList<>();
         postsAdapter = new PostsAdapter(getContext(), allPosts);
-        likeButton = view.findViewById(R.id.likeButton);
-
-//        likeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getContext(), "Post Liked", Toast.LENGTH_SHORT).show();
-//            }
-//        });
 
 
         // Set the adapter on the recycler view

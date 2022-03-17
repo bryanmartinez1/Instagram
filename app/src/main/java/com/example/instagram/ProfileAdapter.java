@@ -4,8 +4,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -45,22 +47,88 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
-//        private TextView tvProfileUserName;
-//        private TextView tvProfileTotalPosts;
-//        private TextView tvProfileBio;
-        //privateImageView
+        private TextView tvUserName;
+        private TextView tvDescription;
+        private TextView tvSmallUserName;
+        private TextView likesCount;
+        private ImageView ivImage;
+        private ImageView ivUserPFP;
+
+        // Like Button
+        private ImageButton likeButton;
+        private int currentLikeButtonImage;
+        int[] likeButtonImage = {R.drawable.ufi_heart, R.drawable.red_heart};
+        // Comment Button
+        private ImageButton commentButton;
+        // Direct Button
+        private ImageButton directButton;
+        // Save Button
+        private ImageButton saveButton;
+        private int currentSaveButtonImage;
+        int[] saveButtonImage = {R.drawable.save, R.drawable.ufi_save_active};
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-//            tvProfileUserName = itemView.findViewById(R.id.tvProfileUserName);
-//            tvProfileBio = itemView.findViewById(R.id.tvProfileBio);
-//            tvProfileTotalPosts = itemView.findViewById(R.id.tvProfileTotalPosts);
+            tvUserName = itemView.findViewById(R.id.tvUserName);
+            ivImage = itemView.findViewById(R.id.ivImage);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
+            tvSmallUserName = itemView.findViewById(R.id.tvSmallUser);
+            ivUserPFP = itemView.findViewById(R.id.ivUserPFP);
+            likesCount = itemView.findViewById(R.id.likesCount);
+            likeButton = itemView.findViewById(R.id.likeButton);
+            commentButton = itemView.findViewById(R.id.commentButton);
+            directButton = itemView.findViewById(R.id.directButton);
+            saveButton = itemView.findViewById(R.id.saveButton);
         }
 
         public void bind(Post post) {
-//            tvProfileUserName.setText("Bryan");
-//            tvProfileTotalPosts.setText("9 " + "Posts");
-//            tvProfileBio.setText(post.getUser().getString("userBio"));
+            // Bind the post data to the view elements
+            tvDescription.setText(post.getDescription());
+            tvSmallUserName.setText(post.getUser().getUsername());
+            tvUserName.setText(post.getUser().getUsername());
+            likesCount.setText(post.getLikesCount()+ " Likes");
+            // Like Button
+            likeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    currentLikeButtonImage++;
+                    currentLikeButtonImage = currentLikeButtonImage %likeButtonImage.length;
+                    likeButton.setImageResource(likeButtonImage[currentLikeButtonImage]);
+                }
+            });
+            //Comment Button
+            commentButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context,"Comment Button Works", Toast.LENGTH_SHORT).show();
+                }
+            });
+            // Direct Button
+            directButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Toast.makeText(context,"Direct Button Works", Toast.LENGTH_SHORT).show();
+                }
+            });
+            // Save Button
+            saveButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    currentSaveButtonImage++;
+                    currentSaveButtonImage = currentSaveButtonImage %saveButtonImage.length;
+                    saveButton.setImageResource(saveButtonImage[currentSaveButtonImage]);
+                }
+            });
+            //Posted Image
+            ParseFile image = post.getImage();
+            if(image != null) {
+                Glide.with(context).load(post.getImage().getUrl()).into(ivImage);
+            }
+            // PFP Image
+            ParseFile pfp = post.getUser().getParseFile("userProfileImage");
+            if(pfp != null) {
+                Glide.with(context).load(pfp.getUrl()).into(ivUserPFP);
+            }
         }
     }
 }

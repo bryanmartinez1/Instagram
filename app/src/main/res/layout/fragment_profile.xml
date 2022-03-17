@@ -68,8 +68,9 @@
         android:id="@+id/tvProfileTotalPosts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="6dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="11dp"
         android:layout_toEndOf="@+id/tvProfileUserName"
         tools:text="9 Posts" />
 

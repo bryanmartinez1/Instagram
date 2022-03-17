@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_create:
                         fragment = new CreateFragment();
                         break;
-                    //TODO: Update Fragment Profile
+                    // TODO: add save to navigation screen and make save fragment
                     case R.id.action_profile:
                     default:
                         fragment = new ProfileFragment();
