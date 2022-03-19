@@ -73,7 +73,7 @@ public class ProfileFragment extends Fragment {
         userPFP = view.findViewById(R.id.ivUserProfileImage);
 
         tvProfileUserName.setText(currentUser.getUsername());
-        tvProfileTotalPosts.setText("9 " + "Posts");
+        tvProfileTotalPosts.setText(Post.KEY_USER.length() + " Posts");
         tvProfileBio.setText(currentUser.getString("userBio"));
         // PFP Image
         ParseFile pfp = currentUser.getParseFile("userProfileImage");

@@ -60,6 +60,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         int[] likeButtonImage = {R.drawable.ufi_heart, R.drawable.red_heart};
         // Comment Button
         private ImageButton commentButton;
+        private int currentCommentButtonImage;
+        int[] commentButtonImage = {R.drawable.ufi_comment, R.drawable.comment_bubble_icon_black};
         // Direct Button
         private ImageButton directButton;
         // Save Button
@@ -101,13 +103,12 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             commentButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(context,"Comment Button Works", Toast.LENGTH_SHORT).show();
-
-                    // TODO: When clicked opens a recycler view that displays comment logo darkens
-                    //       and recycler view shows up displaying all comments of the post and an
-                    //       option to add a comment as well
-                    //       When clicked again the recycler view closes and comment logo
-                    //       whitens again
+                    currentCommentButtonImage++;
+                    currentCommentButtonImage = currentCommentButtonImage %commentButtonImage.length;
+                    commentButton.setImageResource(commentButtonImage[currentCommentButtonImage]);
+                    if(currentCommentButtonImage == R.drawable.comment_bubble_icon_black) {
+                        Toast.makeText(context, "Comment Buttton change works", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
             // Direct Button
