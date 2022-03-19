@@ -55,7 +55,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://github.com/bryanmartinez1/Instagram/blob/master/insta%20demo.gif' title='Instagram App Demo' width='' alt='Video Walkthrough' />
+<img src='https://github.com/bryanmartinez1/Instagram/blob/master/insta%20demo%202.gif' title='Instagram App Demo' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
