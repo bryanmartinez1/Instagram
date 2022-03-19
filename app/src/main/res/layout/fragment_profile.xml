@@ -13,6 +13,7 @@
         android:layout_height="150dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        tools:ignore="ImageContrastCheck"
         tools:src="@tools:sample/avatars" />
 
     <TextView
@@ -79,13 +80,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvProfileUserName"
-        android:layout_alignBottom="@+id/ivUserProfileImage"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="0dp"
         android:layout_toEndOf="@+id/ivUserProfileImage"
         tools:text="Example Bio No Sure What to Put" />
+
+    <ImageButton
+        android:id="@+id/addChangeProfileImage"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignEnd="@+id/ivUserProfileImage"
+        android:layout_alignBottom="@+id/ivUserProfileImage"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="133dp"
+        android:layout_marginEnd="0dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/add_change_image_profile"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck,ImageContrastCheck" />
 
 </RelativeLayout>

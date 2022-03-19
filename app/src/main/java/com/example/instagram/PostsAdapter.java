@@ -44,6 +44,17 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
     public int getItemCount() {
         return posts.size();
     }
+    // Clean all elements of the recycler
+    public void clear() {
+        posts.clear();
+        notifyDataSetChanged();
+    }
+
+    // Add a list of items -- change to type used
+    public void addAll(List<Post> postList) {
+        posts.addAll(postList);
+        notifyDataSetChanged();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -51,6 +62,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvDescription;
         private TextView tvSmallUserName;
         private TextView likesCount;
+        private TextView postTime;
         private ImageView ivImage;
         private ImageView ivUserPFP;
 
@@ -81,6 +93,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             commentButton = itemView.findViewById(R.id.commentButton);
             directButton = itemView.findViewById(R.id.directButton);
             saveButton = itemView.findViewById(R.id.saveButton);
+            postTime = itemView.findViewById(R.id.tvTimeOfPost);
 
         }
 
@@ -90,6 +103,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             tvSmallUserName.setText(post.getUser().getUsername());
             tvUserName.setText(post.getUser().getUsername());
             likesCount.setText(post.getLikesCount()+ " Likes");
+            postTime.setText(post.getPostDate().toString());
             // Like Button
             likeButton.setOnClickListener(new View.OnClickListener() {
                 @Override

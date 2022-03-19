@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,6 +48,7 @@ public class ProfileFragment extends Fragment {
     private ImageView userPFP;
 
     private Button buttonLogOut;
+    private ImageButton changeProfileImageButton;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -72,6 +74,9 @@ public class ProfileFragment extends Fragment {
         tvProfileTotalPosts = view.findViewById(R.id.tvProfileTotalPosts);
         userPFP = view.findViewById(R.id.ivUserProfileImage);
 
+        buttonLogOut = view.findViewById(R.id.profileButtonLogOut);
+        changeProfileImageButton = view.findViewById(R.id.addChangeProfileImage);
+
         tvProfileUserName.setText(currentUser.getUsername());
         tvProfileTotalPosts.setText(Post.KEY_USER.length() + " Posts");
         tvProfileBio.setText(currentUser.getString("userBio"));
@@ -81,13 +86,19 @@ public class ProfileFragment extends Fragment {
             Glide.with(getContext()).load(pfp.getUrl()).into(userPFP);
         }
 
-        buttonLogOut = view.findViewById(R.id.profileButtonLogOut);
         buttonLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 ParseUser.logOut();
                 ParseUser currentUser = ParseUser.getCurrentUser();
                 goLoginActivity();
+            }
+        });
+
+        changeProfileImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Change Profile Image", Toast.LENGTH_SHORT).show();
             }
         });
 
